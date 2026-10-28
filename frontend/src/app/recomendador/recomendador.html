@@ -1,0 +1,458 @@
+<div class="pcmatch-page">
+  <!-- ========================================= -->
+  <!-- NAVBAR -->
+  <!-- ========================================= -->
+
+  <nav class="pc-navbar">
+    <div class="container">
+      <div class="brand">
+        <div class="brand-logo">
+          <span>⌘</span>
+        </div>
+
+        <div>
+          <div class="brand-name">PC-MATCH <span>AI</span></div>
+
+          <div class="brand-subtitle">SMART PC CONFIGURATOR</div>
+        </div>
+      </div>
+
+      <div class="navbar-status">
+        <span class="status-dot"></span>
+        SISTEMA ACTIVO
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================= -->
+  <!-- HERO -->
+  <!-- ========================================= -->
+
+  <section class="hero">
+    <div class="hero-grid"></div>
+
+    <div class="container hero-content">
+      <div class="hero-badge">
+        <span>✦</span>
+        RECOMENDACIÓN INTELIGENTE
+      </div>
+
+      <h1>
+        Construye la PC que
+        <span>se adapta a ti.</span>
+      </h1>
+
+      <p>
+        PC-Match AI analiza tu presupuesto, necesidades y preferencias para generar configuraciones
+        compatibles y adecuadas para ti.
+      </p>
+
+      <div class="hero-features">
+        <div class="hero-feature">
+          <span>◈</span>
+          Compatibilidad
+        </div>
+
+        <div class="hero-feature">
+          <span>◈</span>
+          Presupuesto
+        </div>
+
+        <div class="hero-feature">
+          <span>◈</span>
+          Inteligencia artificial
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================= -->
+  <!-- CONFIGURADOR -->
+  <!-- ========================================= -->
+
+  <section class="configurator-section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="section-number">01</div>
+
+        <div>
+          <span class="section-label"> CONFIGURADOR </span>
+
+          <h2>Cuéntanos qué necesitas</h2>
+
+          <p>
+            Define las características de tu PC y nuestro sistema generará diferentes
+            configuraciones para ti.
+          </p>
+        </div>
+      </div>
+
+      <div class="configurator-card">
+        <form [formGroup]="form" (ngSubmit)="enviar()">
+          <div class="form-grid">
+            <!-- PRESUPUESTO -->
+
+            <div class="field-group field-large">
+              <label>
+                <span class="field-icon">₿</span>
+                PRESUPUESTO
+              </label>
+
+              <div class="input-money">
+                <span>$</span>
+
+                <input type="number" formControlName="presupuesto" placeholder="5000000" />
+
+                <small>COP</small>
+              </div>
+
+              <div class="field-help">Presupuesto máximo disponible.</div>
+            </div>
+
+            <!-- USO PRINCIPAL -->
+
+            <div class="field-group">
+              <label>
+                <span class="field-icon">◉</span>
+                USO PRINCIPAL
+              </label>
+
+              <select formControlName="uso_principal">
+                <option>Gaming</option>
+                <option>Programación</option>
+                <option>Edición</option>
+              </select>
+            </div>
+
+            <!-- USO SECUNDARIO -->
+
+            <div class="field-group">
+              <label>
+                <span class="field-icon">◇</span>
+                USO SECUNDARIO
+                <small>OPCIONAL</small>
+              </label>
+
+              <input
+                type="text"
+                formControlName="uso_secundario"
+                placeholder="Programación, edición, IA..."
+              />
+            </div>
+
+            <!-- RESOLUCIÓN -->
+
+            <div class="field-group">
+              <label>
+                <span class="field-icon">▣</span>
+                RESOLUCIÓN
+              </label>
+
+              <select formControlName="resolucion">
+                <option>1080p</option>
+                <option>1440p</option>
+                <option>4K</option>
+              </select>
+            </div>
+
+            <!-- FPS -->
+
+            <div class="field-group">
+              <label>
+                <span class="field-icon">↯</span>
+                FPS OBJETIVO
+              </label>
+
+              <input type="number" formControlName="fps_objetivo" placeholder="144" />
+
+              <div class="field-help">Frecuencia de cuadros deseada.</div>
+            </div>
+
+            <!-- JUEGO -->
+
+            <div class="field-group">
+              <label>
+                <span class="field-icon">△</span>
+                JUEGO
+                <small>OPCIONAL</small>
+              </label>
+
+              <input type="text" formControlName="juego" placeholder="Cyberpunk 2077" />
+            </div>
+
+            <!-- SOFTWARE -->
+
+            <div class="field-group">
+              <label>
+                <span class="field-icon">⌘</span>
+                SOFTWARE
+                <small>OPCIONAL</small>
+              </label>
+
+              <input
+                type="text"
+                formControlName="software"
+                placeholder="Blender, Visual Studio..."
+              />
+            </div>
+
+            <!-- MARCA -->
+
+            <div class="field-group">
+              <label>
+                <span class="field-icon">◆</span>
+                PREFERENCIA DE MARCA
+              </label>
+
+              <select formControlName="preferencia_marca">
+                <option value="">Sin preferencia</option>
+
+                <option>AMD</option>
+                <option>Intel</option>
+                <option>NVIDIA</option>
+              </select>
+            </div>
+
+            <!-- CANTIDAD -->
+
+            <div class="field-group">
+              <label>
+                <span class="field-icon">▦</span>
+                CONFIGURACIONES
+              </label>
+
+              <select formControlName="cantidad">
+                <option [value]="3">3 configuraciones</option>
+
+                <option [value]="5">5 configuraciones</option>
+
+                <option [value]="7">7 configuraciones</option>
+
+                <option [value]="10">10 configuraciones</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- BOTÓN -->
+
+          <div class="form-action">
+            <button type="submit" [disabled]="form.invalid || cargando()" class="generate-button">
+              @if (cargando()) {
+                <span class="loading-spinner"></span>
+
+                ANALIZANDO CONFIGURACIONES...
+              } @else {
+                <span>✦</span>
+
+                GENERAR CONFIGURACIONES
+
+                <span class="button-arrow"> → </span>
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================= -->
+  <!-- RESULTADOS -->
+  <!-- ========================================= -->
+
+  @if (resultados().length > 0) {
+    <section class="results-section">
+      <div class="container">
+        <div class="results-header">
+          <div class="section-heading">
+            <div class="section-number">02</div>
+
+            <div>
+              <span class="section-label"> PC-MATCH RESULTS </span>
+
+              <h2>Configuraciones encontradas</h2>
+
+              <p>Estas configuraciones fueron seleccionadas según tus necesidades.</p>
+            </div>
+          </div>
+
+          <div class="results-count">
+            <strong>
+              {{ resultados().length }}
+            </strong>
+
+            <span> configuraciones </span>
+          </div>
+        </div>
+
+        <!-- TARJETAS -->
+
+        <div class="configurations-grid">
+          @for (c of resultados(); track c.id_configuracion) {
+            <article class="pc-card">
+              <!-- HEADER -->
+
+              <div class="pc-card-header">
+                <div>
+                  <span class="pc-id"> CONFIGURATION </span>
+
+                  <h3>
+                    {{ c.id_configuracion }}
+                  </h3>
+                </div>
+
+                <span class="category-badge" [class]="'category-' + claseCategoria(c.categoria)">
+                  {{ c.categoria }}
+                </span>
+              </div>
+
+              <!-- PRECIO -->
+
+              <div class="pc-price">
+                <span> PRECIO ESTIMADO </span>
+
+                <strong>
+                  {{ c.precio_total_formateado }}
+                </strong>
+              </div>
+
+              <!-- COMPONENTES -->
+
+              <div class="pc-components">
+                @for (p of partes; track p.key) {
+                  <div class="component-item">
+                    <div class="component-icon">
+                      @switch (p.nombre) {
+                        @case ('CPU') {
+                          🧠
+                        }
+
+                        @case ('Cooler') {
+                          ❄
+                        }
+
+                        @case ('Placa base') {
+                          ▦
+                        }
+
+                        @case ('RAM') {
+                          ▤
+                        }
+
+                        @case ('Almacenamiento') {
+                          ◫
+                        }
+
+                        @case ('GPU') {
+                          ◈
+                        }
+
+                        @case ('Fuente') {
+                          ⚡
+                        }
+
+                        @case ('Gabinete') {
+                          ▣
+                        }
+                      }
+                    </div>
+
+                    <div class="component-data">
+                      <span>
+                        {{ p.nombre }}
+                      </span>
+
+                      <strong>
+                        {{ valor(c, p.key) }}
+                      </strong>
+                    </div>
+
+                    <div class="component-cost">
+                      {{ valor(c, p.precio) }}
+                    </div>
+                  </div>
+                }
+              </div>
+
+              <!-- CONFIANZA -->
+
+              <div class="confidence">
+                <div class="confidence-header">
+                  <span> PROBABILIDAD DE CATEGORÍA </span>
+
+                  <strong> {{ c.probabilidad_estimada_categoria_pct }}% </strong>
+                </div>
+
+                <div class="confidence-bar">
+                  <div [style.width.%]="c.probabilidad_estimada_categoria_pct"></div>
+                </div>
+              </div>
+
+              <!-- COMPATIBILIDAD -->
+
+              <div class="compatibility">
+                <div class="compatibility-title">
+                  <span>✓</span>
+                  CONFIGURACIÓN COMPATIBLE
+                </div>
+
+                <p>
+                  {{ c.compatibilidad }}
+                </p>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- ========================================= -->
+  <!-- ERROR -->
+  <!-- ========================================= -->
+
+  @if (error()) {
+    <section class="container error-section">
+      <div class="error-box">
+        <span>⚠</span>
+
+        <div>
+          <strong> No pudimos generar las configuraciones </strong>
+
+          <p>
+            {{ error() }}
+          </p>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- ========================================= -->
+  <!-- SIN RESULTADOS -->
+  <!-- ========================================= -->
+
+  @if (buscado() && !cargando() && resultados().length === 0 && !error()) {
+    <section class="container empty-section">
+      <div class="empty-box">
+        <div class="empty-icon">◌</div>
+
+        <h3>No encontramos configuraciones</h3>
+
+        <p>Intenta aumentar el presupuesto o modificar algunos de los requisitos.</p>
+      </div>
+    </section>
+  }
+
+  <!-- ========================================= -->
+  <!-- FOOTER -->
+  <!-- ========================================= -->
+
+  <footer class="pc-footer">
+    <div class="container">
+      <div class="footer-brand">PC-MATCH <span>AI</span></div>
+
+      <div class="footer-text">Sistema inteligente de recomendación de configuraciones PC</div>
+
+      <div class="footer-tech">PYTHON · FASTAPI · ANGULAR · MACHINE LEARNING</div>
+    </div>
+  </footer>
+</div>
