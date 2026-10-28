@@ -18,7 +18,9 @@ app = FastAPI(title="PC-Match AI")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4200"],
+    allow_origins=[
+        "https://pc-match-ai.onrender.com"
+    ],
     allow_methods=["*"],
     allow_headers=["*"],
 )
